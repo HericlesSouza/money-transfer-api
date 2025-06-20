@@ -1,98 +1,179 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 💸 Money Transfer API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST criada para **simular transferências de dinheiro entre usuários**. Você pode rodar tudo **100 % em Docker** (recomendado) ou, se preferir, diretamente no Node.js.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Link de deploy:  
+`https://money-transfer-api-c5tp.onrender.com`
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Sumário
 
-## Project setup
+1. Funcionalidades
+2. Escolha seu modo de execução  
+   • Docker (recomendado)  
+   • Instalação local (Node.js)
+3. Variáveis de ambiente
+4. Scripts NPM úteis
+5. Documentação de endpoints
+6. Testes
 
-```bash
-$ npm install
-```
+---
 
-## Compile and run the project
+## 1 • Funcionalidades
 
-```bash
-# development
-$ npm run start
+| Recurso  | Descrição                                                               |
+| -------- | ----------------------------------------------------------------------- |
+| Auth     | Cadastro (`/users/signup`) e login (`/users/signin`) com emissão de JWT |
+| Users    | Listagem de usuários e seus saldos (`/users`)                           |
+| Transfer | Transferência monetária entre contas (`/transfer`)                      |
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 2 • Escolha seu modo de execução
 
-## Run tests
+### 2.1 Docker (recomendado - não precisa instalar Node.js)
+
+Pré-requisitos: **Docker 20+** e **Docker Compose v2**.
 
 ```bash
-# unit tests
-$ npm run test
+# clonar repositório
+git clone https://github.com/hericlessouza/money_transfer.git
+cd money_transfer
 
-# e2e tests
-$ npm run test:e2e
+# definir variáveis de ambiente em tempo de execução
+export JWT_SECRET="segredo_super_secreto"
+export JWT_EXPIRES_IN="3600s"
 
-# test coverage
-$ npm run test:cov
+# sobe o container
+docker compose up
 ```
 
-## Deployment
+O backend sobe em `http://localhost:3000`.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### 2.2 Instalação local (Node.js)
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Use apenas se precisar alterar o código fora de containers.
+
+Requisitos: Node.js 20 LTS + npm 9+
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+git clone https://github.com/hericlessouza/money_transfer.git
+cd money_transfer
+npm ci
+cp .env.example .env   # edite JWT_SECRET e JWT_EXPIRES_IN
+npm run start:dev      # hot-reload em http://localhost:3000
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 3 • Variáveis de ambiente
 
-Check out a few resources that may come in handy when working with NestJS:
+| Nome           | Exemplo          | Obrigatório | Observação                                  |
+| -------------- | ---------------- | ----------- | ------------------------------------------- |
+| JWT_SECRET     | mysupersecretkey | ✅          | Usado para assinar o JWT                    |
+| JWT_EXPIRES_IN | 3600s            | ✅          | Aceita notação do jsonwebtoken (`1d`, `2h`) |
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+No Docker Compose você pode exportar as vars (como mostrado) ou criar um arquivo `.env` – o Compose carrega automaticamente.
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 4 • Scripts NPM úteis
 
-## Stay in touch
+| Script            | Descrição                          |
+| ----------------- | ---------------------------------- |
+| npm run start     | Executa build já compilado (dist/) |
+| npm run start:dev | Nest CLI + auto-reload             |
+| npm run build     | Transpila TypeScript → `dist/`     |
+| npm run test      | Testes unitários e de integração   |
+| npm run test:cov  | Relatório de cobertura             |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## 5 • Documentação de endpoints
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Base local: `http://localhost:3000`  
+Produção: `https://money-transfer-api-c5tp.onrender.com`
+
+Todas as rotas (exceto signup/signin) exigem:  
+`Authorization: Bearer <jwt>`
+
+### POST /users/signup
+
+- Request
+
+```json
+{
+  "username": "john_doe",
+  "password": "senha123",
+  "birthdate": "1990-01-01",
+  "balance": 500.45
+}
+```
+
+- Response 201
+
+```json
+{ "id": "uuid-gerado" }
+```
+
+### POST /users/signin
+
+- Request
+
+```json
+{ "username": "john_doe", "password": "senha123" }
+```
+
+- Response 200
+
+```json
+{ "token": "jwt...", "expiresIn": "3600s" }
+```
+
+### GET /users
+
+Retorna todos os usuários.
+
+```json
+[
+  {
+    "id": "uuid1",
+    "username": "john_doe",
+    "birthdate": "1990-01-01",
+    "balance": 100.0
+  }
+]
+```
+
+### POST /transfer
+
+- Request
+
+```json
+{ "fromId": "uuid1", "toId": "uuid2", "amount": 25.75 }
+```
+
+- Response 204 (sem corpo)
+
+---
+
+## 6 • Testes
+
+### 6.1 Via Docker (usando o stage **builder**)
+
+O runner não contém devDependencies, portanto usamos a imagem do stage builder:
+
+```bash
+# constrói até o stage builder
+docker build --target builder -t money_transfer:test .
+
+# executa testes
+docker run --rm money_transfer:test npm run test
+```
+
+### 6.2 Via Node local
+
+```bash
+`npm run test`
+```
