@@ -19,10 +19,4 @@ export class User {
 
   @Column({ type: 'numeric', precision: 12, scale: 2, default: 0 })
   balance: string;
-
-  @OneToMany(() => Transfer, (t) => t.from)
-  outgoing: Transfer[];
-
-  @OneToMany(() => Transfer, (t) => t.to)
-  incoming: Transfer[];
 }
