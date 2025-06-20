@@ -11,6 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -28,5 +29,11 @@ export class UsersController {
   @Post('signin')
   async signin(@Body() loginDto: LoginDto, @Request() req) {
     return await this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll() {
+    return await this.usersService.findAll();
   }
 }

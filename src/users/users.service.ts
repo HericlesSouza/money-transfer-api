@@ -26,6 +26,7 @@ export class UsersService {
     const hash = await bcrypt.hash(createUserDto.password, this.BCRYPT_SALT);
     const user = this.userRepository.create({
       ...createUserDto,
+      balance: (createUserDto.balance ?? 0).toFixed(2),
       password: hash,
     });
 
@@ -34,15 +35,11 @@ export class UsersService {
     return { id: savedUser.id };
   }
 
-  findByUsername(username: string) {
+  findByUsername(username: string): Promise<User | null> {
     return this.userRepository.findOne({ where: { username } });
   }
 
-  findOne(id: string) {
-    return this.userRepository.findOne({ where: { id } });
-  }
-
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userRepository.find({
       select: ['id', 'username', 'birthdate', 'balance'],
     });
