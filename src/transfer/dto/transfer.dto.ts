@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNumber, IsPositive, IsUUID, Min } from 'class-validator';
+import { IsNumber, IsPositive, IsUUID } from 'class-validator';
 
 export class TransferDto {
   @IsUUID()

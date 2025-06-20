@@ -10,7 +10,7 @@ const transferServiceMock = () => ({
 });
 
 class AllowAllJwtGuard implements CanActivate {
-  canActivate(_ctx: ExecutionContext): boolean {
+  canActivate(): boolean {
     return true;
   }
 }
