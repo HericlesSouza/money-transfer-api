@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { TransferService } from './transfer.service';
 import { TransferDto } from './dto/transfer.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('transfer')
 export class TransferController {
