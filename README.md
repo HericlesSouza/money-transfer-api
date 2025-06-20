@@ -34,7 +34,7 @@ Link de deploy:
 
 ### 2.1 Docker (recomendado - não precisa instalar Node.js)
 
-Pré-requisitos: **Docker 20+** e **Docker Compose v2**.
+Pré-requisitos: **Docker 20+**
 
 ```bash
 # clonar repositório
@@ -55,11 +55,11 @@ O backend sobe em `http://localhost:3000`.
 
 Use apenas se precisar alterar o código fora de containers.
 
-Requisitos: Node.js 20 LTS + npm 9+
+Requisitos: Node.js 22 LTS
 
 ```bash
 git clone https://github.com/hericlessouza/money_transfer.git
-cd money_transfer
+cd money-transfer-api
 npm ci
 cp .env.example .env   # edite JWT_SECRET e JWT_EXPIRES_IN
 npm run start:dev      # hot-reload em http://localhost:3000
