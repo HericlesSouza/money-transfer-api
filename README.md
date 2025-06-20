@@ -38,12 +38,10 @@ Pré-requisitos: **Docker 20+**
 
 ```bash
 # clonar repositório
-git clone https://github.com/hericlessouza/money_transfer.git
+git clone https://github.com/HericlesSouza/money-transfer-api.git
 cd money_transfer
 
-# definir variáveis de ambiente em tempo de execução
-export JWT_SECRET="segredo_super_secreto"
-export JWT_EXPIRES_IN="3600s"
+cp .env.example .env   # edite JWT_SECRET e JWT_EXPIRES_IN
 
 # sobe o container
 docker compose up
@@ -58,7 +56,7 @@ Use apenas se precisar alterar o código fora de containers.
 Requisitos: Node.js 22 LTS
 
 ```bash
-git clone https://github.com/hericlessouza/money_transfer.git
+git clone https://github.com/HericlesSouza/money-transfer-api.git
 cd money-transfer-api
 npm ci
 cp .env.example .env   # edite JWT_SECRET e JWT_EXPIRES_IN
